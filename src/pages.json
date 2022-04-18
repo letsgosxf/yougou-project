@@ -8,13 +8,6 @@
   },
   "pages": [
     {
-      "path": "pages/goods_detail/goods_detail",
-      "style": {
-        "navigationBarTitleText": "商品详情",
-        "onReachBottomDistance": 100
-      }
-    },
-    {
       "path": "pages/category/category",
       "style": {
         "navigationBarTitleText": "商品分类"
@@ -24,6 +17,13 @@
       "path": "pages/goods_list/goods_list",
       "style": {
         "navigationBarTitleText": "商品列表",
+        "onReachBottomDistance": 100
+      }
+    },
+    {
+      "path": "pages/goods_detail/goods_detail",
+      "style": {
+        "navigationBarTitleText": "商品详情",
         "onReachBottomDistance": 100
       }
     },
