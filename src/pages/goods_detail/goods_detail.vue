@@ -5,7 +5,13 @@
     </view>
     <!-- 轮播图 -->
     <view class="wrap">
-      <u-swiper :list="list" :height="497" mode="dot"></u-swiper>
+      <u-swiper
+        :list="list"
+        :height="497"
+        mode="dot"
+        img-mode="aspectFill"
+        @click="previewImage"
+      ></u-swiper>
     </view>
     <!-- 商品详情 -->
     <view class="goods-detail">
@@ -36,6 +42,7 @@ export default {
     return {
       title: "商品详情",
       isBack: true,
+      detail: {},
       swiperList: [],
     };
   },
@@ -49,14 +56,23 @@ export default {
     },
   },
   onLoad(option) {
-    params.goods_id = option.goods_id;
+    params.goods_id = option.goods_id || 25965;
     // 获取数据
     this.getgoodsDetail();
   },
   methods: {
     async getgoodsDetail() {
       const { message } = await this.$u.get("/goods/detail", params);
+      this.detail = message;
       this.swiperList = message.pics;
+    },
+    // 轮播图 图片 预览
+    previewImage(index) {
+      uni.previewImage({
+        current: index,
+        urls: this.swiperList.map((item) => item.pics_big_url),
+        indicator: "number",
+      });
     },
   },
 };
@@ -69,7 +85,7 @@ export default {
 
 .wrap {
   margin: 0 auto;
-  width: 497rpx;
+  width: 100%;
   height: 497rpx;
 
   ::v-deep {
@@ -107,12 +123,12 @@ export default {
       .goods-icon {
         width: 11rpx;
         height: 25rpx;
-        font-size: 18rpx;
+        font-size: 24rpx;
       }
 
       .goods-number {
         line-height: 33rpx;
-        font-size: 24rpx;
+        font-size: 30rpx;
       }
     }
 
