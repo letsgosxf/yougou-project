@@ -47,6 +47,7 @@
 
 <script>
 import SubmitBar from "./components/submit_bar";
+import { mapState } from "vuex";
 let params = {
   goods_id: "",
 };
@@ -94,25 +95,14 @@ export default {
       });
     },
     addCart() {
-      const index = this.cart.findIndex(
-        (item) => item.goods_id === Number(params.goods_id)
-      );
-      if (index === -1) {
-        this.cart.push({
-          goods_id: this.detail.goods_id,
-          goods_name: this.detail.goods_name,
-          goods_price: this.detail.goods_price,
-          number: 1,
-          pics: this.detail.pics[0].pics_sma_url,
-        });
-      } else {
-        this.cart = this.cart.map((ele, i) => {
-          if (i === index) {
-            ele.number++;
-          }
-          return ele;
-        });
-      }
+      this.$store.commit("cart/addGoods", {
+        number: 1,
+        isChecked: true,
+        goods_id: this.detail.goods_id,
+        goods_name: this.detail.goods_name,
+        goods_price: this.detail.goods_price,
+        pics: this.detail.pics[0].pics_sma_url,
+      });
     },
   },
 };
